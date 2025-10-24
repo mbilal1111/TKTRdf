@@ -1,0 +1,248 @@
+@prefix : <http://example.org/smartbuilding#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sense: <http://w3id.org/explainability/sense#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StateTypeCausality1 a sense:StateTypeCausality ;
+    rdfs:label "windowOpen causes highEnergy" ;
+    sense:causalRelation "causes" ;
+    sense:cause :windowOpen ;
+    sense:effect :highEnergy ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality2 a sense:StateTypeCausality ;
+    rdfs:label "ConstantTemperatureValue causes highEnergy" ;
+    sense:causalRelation "causes" ;
+    sense:cause :ConstantTemperatureValue ;
+    sense:effect :highEnergy ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "samePlatform" .
+
+:AHU rdfs:subClassOf :Facility,
+        sense:PlatformType .
+
+:AmbTAir01 a sosa:Sensor ;
+    rdfs:label "AmbTAir01" ;
+    sense:dataSource "measurement=smartbuilding,field=AmbTAir01" ;
+    sosa:isHostedBy :weatherStationInfineon ;
+    sosa:observes :AmbientTemperature .
+
+:AmbientTemperature a sosa:ObservableProperty .
+
+:Building rdfs:subClassOf :Facility,
+        sense:PlatformType .
+
+:HeatDiffRadiator a sosa:ObservableProperty .
+
+:Heatradiatorroom a sosa:ObservableProperty .
+
+:Room rdfs:subClassOf :Facility,
+        sense:PlatformType .
+
+:RoomTemperature a sosa:ObservableProperty .
+
+:TempChangeHighEvent a sense:EventType ;
+    rdfs:label "TempChangeHighEvent" ;
+    sense:detectedBy :Room3.16_TempChangeHighEvent ;
+    sense:endsStateType :ConstantTemperatureValue .
+
+:TempChangeLowEvent a sense:EventType ;
+    rdfs:label "TempChangeLowEvent" ;
+    sense:detectedBy :Room3.16_TempChangeLowEvent ;
+    sense:endsStateType :ConstantTemperatureValue .
+
+:TempStableEvent a sense:EventType ;
+    rdfs:label "TempStableEvent" ;
+    sense:detectedBy :Room3.16_TempStableEvent ;
+    sense:startsStateType :ConstantTemperatureValue .
+
+:ThresholdNormalEvent a sense:EventType ;
+    rdfs:label "ThresholdNormalEvent" ;
+    sense:detectedBy :Room3.16_ThresholdNormalEvent ;
+    sense:endsStateType :highEnergy .
+
+:ThresholdViolatedEvent a sense:EventType ;
+    rdfs:label "ThresholdViolatedEvent" ;
+    sense:detectedBy :Room3.16_ThresholdViolatedEvent ;
+    sense:startsStateType :highEnergy .
+
+:Window rdfs:subClassOf :Facility,
+        sense:PlatformType .
+
+:WindowState a sosa:ObservableProperty .
+
+:Z1Heat04P a sosa:Sensor ;
+    rdfs:label "Z1Heat04P" ;
+    sense:dataSource "measurement=smartbuilding,field=Z1Heat04P" ;
+    sosa:isHostedBy :Room3.16 ;
+    sosa:observes :Heatradiatorroom .
+
+:closedWindowEvent a sense:EventType ;
+    rdfs:label "closedWindowEvent" ;
+    sense:detectedBy :windowWing14_closedWindowEvent ;
+    sense:endsStateType :windowOpen .
+
+:openhourWindowEvent a sense:EventType ;
+    rdfs:label "openhourWindowEvent" ;
+    sense:detectedBy :windowWing14_openhourWindowEvent ;
+    sense:startsStateType :windowOpen .
+
+:weatherStation rdfs:subClassOf :Facility,
+        sense:PlatformType .
+
+:AHUmeetingrooms a sense:PlatformOfInterest ;
+    rdfs:label "AHUmeetingrooms" ;
+    sense:hasPlatformType :AHU ;
+    sosa:hosts :Room3.16 ;
+    sosa:isHostedBy :Infineonbuilding .
+
+:Infineonbuilding a sense:PlatformOfInterest ;
+    rdfs:label "Infineonbuilding" ;
+    sense:hasPlatformType :Building ;
+    sosa:hosts :AHUmeetingrooms,
+        :weatherStationInfineon .
+
+:Room3.16_TempChangeHighEvent a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :Z1TAir15 ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 0.01 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 300 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Room3.16_TempChangeLowEvent a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 0.01 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :Z1TAir15 ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 300 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Room3.16_TempStableEvent a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 0.01 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 14400 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :Z1TAir15 ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:Room3.16_ThresholdNormalEvent a sense:EventDetection ;
+    sense:definition "always[0:0](signal < 0)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :DiffHeatingThreshold1 ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Room3.16_ThresholdViolatedEvent a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 0)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :DiffHeatingThreshold1 ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:weatherStationInfineon a sense:PlatformOfInterest ;
+    rdfs:label "weatherStationInfineon" ;
+    sense:hasPlatformType :weatherStation ;
+    sosa:hosts :AmbTAir01 ;
+    sosa:isHostedBy :Infineonbuilding .
+
+:windowWing14 a sense:PlatformOfInterest ;
+    rdfs:label "windowWing14" ;
+    sense:hasPlatformType :Window ;
+    sosa:hosts :Z1Wing14 ;
+    sosa:isHostedBy :Room3.16 .
+
+:windowWing14_closedWindowEvent a sense:EventDetection ;
+    sense:definition "always[0:0](signal < 50)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :Z1Wing14 ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:windowWing14_openhourWindowEvent a sense:EventDetection ;
+    sense:definition "always[0:7200](signal > 50)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :Z1Wing14 ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:DiffHeatingThreshold1 a sosa:Sensor ;
+    rdfs:label "DiffHeatingThreshold1" ;
+    sense:dataSource "measurement=smartbuilding,field=DiffHeatingThreshold1" ;
+    sosa:isHostedBy :Room3.16 ;
+    sosa:observes :HeatDiffRadiator ;
+    ssn:implements :Room3.16_ThresholdNormalEvent,
+        :Room3.16_ThresholdViolatedEvent .
+
+:Z1Wing14 a sosa:Sensor ;
+    rdfs:label "Z1Wing14" ;
+    sense:dataSource "measurement=smartbuilding,field=Z1Wing14" ;
+    sosa:isHostedBy :windowWing14 ;
+    sosa:observes :WindowState ;
+    ssn:implements :windowWing14_closedWindowEvent,
+        :windowWing14_openhourWindowEvent .
+
+:windowOpen a sense:StateType ;
+    rdfs:label "windowOpen" ;
+    sense:associatedObservableProperty sense:WindowState ;
+    sense:associatedPlatformType sense:Window ;
+    sense:hasEndEventType :closedWindowEvent ;
+    sense:hasStartEventType :openhourWindowEvent ;
+    sense:isTriggerState true .
+
+:ConstantTemperatureValue a sense:StateType ;
+    rdfs:label "ConstantTemperatureValue" ;
+    sense:associatedObservableProperty sense:RoomTemperature ;
+    sense:associatedPlatformType sense:Facility ;
+    sense:hasEndEventType :TempChangeHighEvent,
+        :TempChangeLowEvent ;
+    sense:hasStartEventType :TempStableEvent ;
+    sense:isTriggerState true .
+
+:Z1TAir15 a sosa:Sensor ;
+    rdfs:label "Z1TAir15" ;
+    sense:dataSource "measurement=smartbuilding,field=Z1TAir15" ;
+    sosa:isHostedBy :Room3.16 ;
+    sosa:observes :RoomTemperature ;
+    ssn:implements :Room3.16_TempChangeHighEvent,
+        :Room3.16_TempChangeLowEvent,
+        :Room3.16_TempStableEvent .
+
+:highEnergy a sense:StateType ;
+    rdfs:label "highEnergy" ;
+    sense:associatedObservableProperty sense:HeatDiffRadiator ;
+    sense:associatedPlatformType sense:Room ;
+    sense:hasEndEventType :ThresholdNormalEvent ;
+    sense:hasStartEventType :ThresholdViolatedEvent ;
+    sense:isTriggerState true .
+
+:Facility rdfs:subClassOf :,
+        sense:PlatformType .
+
+:Room3.16 a sense:PlatformOfInterest ;
+    rdfs:label "Room3.16" ;
+    sense:hasPlatformType :Room ;
+    sosa:hosts :DiffHeatingThreshold1,
+        :Z1Heat04P,
+        :Z1TAir15,
+        :windowWing14 ;
+    sosa:isHostedBy :AHUmeetingrooms .
+
