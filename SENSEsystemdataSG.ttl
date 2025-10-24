@@ -1,0 +1,1435 @@
+@prefix : <http://example.org/seehub#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sense: <http://w3id.org/explainability/sense#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StateTypeCausality1 a sense:StateTypeCausality ;
+    rdfs:label "EVOverallHighCharging_State causes DemandEnvelopeViolation_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :EVOverallHighCharging_State ;
+    sense:effect :DemandEnvelopeViolation_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality10 a sense:StateTypeCausality ;
+    rdfs:label "BatteryLowSOC_State causes BatteryUnused_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :BatteryLowSOC_State ;
+    sense:effect :BatteryUnused_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "samePlatform" .
+
+:StateTypeCausality2 a sense:StateTypeCausality ;
+    rdfs:label "EVOverallHighCharging_State causes BatteryLowSOC_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :EVOverallHighCharging_State ;
+    sense:effect :BatteryLowSOC_State ;
+    sense:temporalRelation "before" ;
+    sense:topologicalRelation "siblingPlatform" .
+
+:StateTypeCausality3 a sense:StateTypeCausality ;
+    rdfs:label "EVIndividualHighCharging_State causes EVOverallHighCharging_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :EVIndividualHighCharging_State ;
+    sense:effect :EVOverallHighCharging_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality4 a sense:StateTypeCausality ;
+    rdfs:label "BatteryDip_State enables DemandEnvelopeViolation_State" ;
+    sense:causalRelation "enables" ;
+    sense:cause :BatteryDip_State ;
+    sense:effect :DemandEnvelopeViolation_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality5 a sense:StateTypeCausality ;
+    rdfs:label "BatteryLowSOC_State enables DemandEnvelopeViolation_State" ;
+    sense:causalRelation "enables" ;
+    sense:cause :BatteryLowSOC_State ;
+    sense:effect :DemandEnvelopeViolation_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality6 a sense:StateTypeCausality ;
+    rdfs:label "BatteryDischargeDifference_State enables DemandEnvelopeViolation_State" ;
+    sense:causalRelation "enables" ;
+    sense:cause :BatteryDischargeDifference_State ;
+    sense:effect :DemandEnvelopeViolation_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality7 a sense:StateTypeCausality ;
+    rdfs:label "EVOverallChargingDifference_State causes BatteryDischargeDifference_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :EVOverallChargingDifference_State ;
+    sense:effect :BatteryDischargeDifference_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "siblingPlatform" .
+
+:StateTypeCausality8 a sense:StateTypeCausality ;
+    rdfs:label "EVIndividualChargingDifference_State causes EVOverallChargingDifference_State" ;
+    sense:causalRelation "causes" ;
+    sense:cause :EVIndividualChargingDifference_State ;
+    sense:effect :EVOverallChargingDifference_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:StateTypeCausality9 a sense:StateTypeCausality ;
+    rdfs:label "BatteryUnused_State enables DemandEnvelopeViolation_State" ;
+    sense:causalRelation "enables" ;
+    sense:cause :BatteryUnused_State ;
+    sense:effect :DemandEnvelopeViolation_State ;
+    sense:temporalRelation "overlaps" ;
+    sense:topologicalRelation "parentPlatform" .
+
+:AP_PVSystem1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_PVSystem1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.PV_Anlage.Wirkleistung_P" ;
+    sosa:isHostedBy :PVSystem1 ;
+    sosa:observes :ActivePower .
+
+:AllEVCharger rdfs:subClassOf :Consumer,
+        sense:PlatformType .
+
+:BatteryAPDropped_Event a sense:EventType ;
+    rdfs:label "BatteryAPDropped_Event" ;
+    sense:detectedBy :Battery1_BatteryAPDropped_Event,
+        :Battery2_BatteryAPDropped_Event,
+        :BatteryOverview_BatteryAPDropped_Event ;
+    sense:startsStateType :BatteryDip_State .
+
+:BatteryAPRising_Event a sense:EventType ;
+    rdfs:label "BatteryAPRising_Event" ;
+    sense:detectedBy :Battery1_BatteryAPRising_Event,
+        :Battery2_BatteryAPRising_Event,
+        :BatteryOverview_BatteryAPRising_Event ;
+    sense:endsStateType :BatteryDip_State .
+
+:BatteryAPStable_Event a sense:EventType ;
+    rdfs:label "BatteryAPStable_Event" ;
+    sense:detectedBy :Battery1_BatteryAPStable_Event,
+        :Battery2_BatteryAPStable_Event,
+        :BatteryOverview_BatteryAPStable_Event ;
+    sense:endsStateType :BatteryDip_State .
+
+:BatteryDischargeDifferenceEnded_Event a sense:EventType ;
+    rdfs:label "BatteryDischargeDifferenceEnded_Event" ;
+    sense:endsStateType :BatteryDischargeDifference_State .
+
+:BatteryDischargeDifferenceStarted_Event a sense:EventType ;
+    rdfs:label "BatteryDischargeDifferenceStarted_Event" ;
+    sense:startsStateType :BatteryDischargeDifference_State .
+
+:BatterySocLow_Event a sense:EventType ;
+    rdfs:label "BatterySocLow_Event" ;
+    sense:detectedBy :Battery1_BatterySocLow_Event,
+        :Battery2_BatterySocLow_Event,
+        :BatteryOverview_BatterySocLow_Event ;
+    sense:startsStateType :BatteryLowSOC_State .
+
+:BatterySocNotLow_Event a sense:EventType ;
+    rdfs:label "BatterySocNotLow_Event" ;
+    sense:detectedBy :Battery1_BatterySocNotLow_Event,
+        :Battery2_BatterySocNotLow_Event,
+        :BatteryOverview_BatterySocNotLow_Event ;
+    sense:endsStateType :BatteryLowSOC_State .
+
+:Buffer rdfs:subClassOf :,
+        sense:PlatformType .
+
+:DemandEnvelopeNormal_Event a sense:EventType ;
+    rdfs:label "DemandEnvelopeNormal_Event" ;
+    sense:detectedBy :Garage1_DemandEnvelopeNormal_Event ;
+    sense:endsStateType :DemandEnvelopeViolation_State .
+
+:DemandEnvelopeViolated_Event a sense:EventType ;
+    rdfs:label "DemandEnvelopeViolated_Event" ;
+    sense:detectedBy :Garage1_DemandEnvelopeViolated_Event ;
+    sense:startsStateType :DemandEnvelopeViolation_State .
+
+:EVIndividualDrop_Event a sense:EventType ;
+    rdfs:label "EVIndividualDrop_Event" ;
+    sense:detectedBy :EVCharger1_EVIndividualDrop_Event,
+        :EVCharger2_EVIndividualDrop_Event,
+        :EVCharger3_EVIndividualDrop_Event,
+        :EVChargerDelta1_EVIndividualDrop_Event,
+        :EVChargerKeba1_EVIndividualDrop_Event,
+        :EVChargerKeba2_EVIndividualDrop_Event,
+        :EVChargerKeba3_EVIndividualDrop_Event,
+        :EVChargerSiCharge1_EVIndividualDrop_Event ;
+    sense:endsStateType :EVIndividualChargingDifference_State .
+
+:EVIndividualHighCharging_Event a sense:EventType ;
+    rdfs:label "EVIndividualHighCharging_Event" ;
+    sense:detectedBy :EVCharger1_EVIndividualHighCharging_Event,
+        :EVCharger2_EVIndividualHighCharging_Event,
+        :EVCharger3_EVIndividualHighCharging_Event,
+        :EVChargerDelta1_EVIndividualHighCharging_Event,
+        :EVChargerKeba1_EVIndividualHighCharging_Event,
+        :EVChargerKeba2_EVIndividualHighCharging_Event,
+        :EVChargerKeba3_EVIndividualHighCharging_Event,
+        :EVChargerSiCharge1_EVIndividualHighCharging_Event ;
+    sense:startsStateType :EVIndividualHighCharging_State .
+
+:EVIndividualNormalCharging_Event a sense:EventType ;
+    rdfs:label "EVIndividualNormalCharging_Event" ;
+    sense:detectedBy :EVCharger1_EVIndividualNormalCharging_Event,
+        :EVCharger2_EVIndividualNormalCharging_Event,
+        :EVCharger3_EVIndividualNormalCharging_Event,
+        :EVChargerDelta1_EVIndividualNormalCharging_Event,
+        :EVChargerKeba1_EVIndividualNormalCharging_Event,
+        :EVChargerKeba2_EVIndividualNormalCharging_Event,
+        :EVChargerKeba3_EVIndividualNormalCharging_Event,
+        :EVChargerSiCharge1_EVIndividualNormalCharging_Event ;
+    sense:endsStateType :EVIndividualHighCharging_State .
+
+:EVIndividualStable_Event a sense:EventType ;
+    rdfs:label "EVIndividualStable_Event" ;
+    sense:detectedBy :EVCharger1_EVIndividualStable_Event,
+        :EVCharger2_EVIndividualStable_Event,
+        :EVCharger3_EVIndividualStable_Event,
+        :EVChargerDelta1_EVIndividualStable_Event,
+        :EVChargerKeba1_EVIndividualStable_Event,
+        :EVChargerKeba2_EVIndividualStable_Event,
+        :EVChargerKeba3_EVIndividualStable_Event,
+        :EVChargerSiCharge1_EVIndividualStable_Event ;
+    sense:endsStateType :EVIndividualChargingDifference_State .
+
+:EVIndividualSurge_Event a sense:EventType ;
+    rdfs:label "EVIndividualSurge_Event" ;
+    sense:detectedBy :EVCharger1_EVIndividualSurge_Event,
+        :EVCharger2_EVIndividualSurge_Event,
+        :EVCharger3_EVIndividualSurge_Event,
+        :EVChargerDelta1_EVIndividualSurge_Event,
+        :EVChargerKeba1_EVIndividualSurge_Event,
+        :EVChargerKeba2_EVIndividualSurge_Event,
+        :EVChargerKeba3_EVIndividualSurge_Event,
+        :EVChargerSiCharge1_EVIndividualSurge_Event ;
+    sense:startsStateType :EVIndividualChargingDifference_State .
+
+:EVOverallDrop_Event a sense:EventType ;
+    rdfs:label "EVOverallDrop_Event" ;
+    sense:detectedBy :AllEVChargers1_EVOverallDrop_Event ;
+    sense:endsStateType :EVOverallChargingDifference_State .
+
+:EVOverallHighCharging_Event a sense:EventType ;
+    rdfs:label "EVOverallHighCharging_Event" ;
+    sense:detectedBy :AllEVChargers1_EVOverallHighCharging_Event ;
+    sense:startsStateType :EVOverallHighCharging_State .
+
+:EVOverallNormalCharging_Event a sense:EventType ;
+    rdfs:label "EVOverallNormalCharging_Event" ;
+    sense:detectedBy :AllEVChargers1_EVOverallNormalCharging_Event ;
+    sense:endsStateType :EVOverallHighCharging_State .
+
+:EVOverallStable_Event a sense:EventType ;
+    rdfs:label "EVOverallStable_Event" ;
+    sense:detectedBy :AllEVChargers1_EVOverallStable_Event ;
+    sense:endsStateType :EVOverallChargingDifference_State .
+
+:EVOverallSurge_Event a sense:EventType ;
+    rdfs:label "EVOverallSurge_Event" ;
+    sense:detectedBy :AllEVChargers1_EVOverallSurge_Event ;
+    sense:startsStateType :EVOverallChargingDifference_State .
+
+:EnvelopeEntity rdfs:subClassOf :,
+        sense:PlatformType .
+
+:EnvelopeViolation a sosa:ObservableProperty .
+
+:EnvelopeViolation_Garage1_Sensor a sosa:Sensor ;
+    rdfs:label "EnvelopeViolation_Garage1_Sensor" ;
+    sosa:isHostedBy :Garage1 ;
+    sosa:observes :EnvelopeViolation .
+
+:Garage rdfs:subClassOf :EnvelopeEntity,
+        sense:PlatformType .
+
+:OperatingEnvelope a sosa:ObservableProperty .
+
+:PVSystem rdfs:subClassOf :Producer,
+        sense:PlatformType .
+
+:Producer rdfs:subClassOf :,
+        sense:PlatformType .
+
+:AllEVChargers1_EVOverallDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_AllEVChargers1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:AllEVChargers1_EVOverallHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_AllEVChargers1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:AllEVChargers1_EVOverallNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_AllEVChargers1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:AllEVChargers1_EVOverallStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_AllEVChargers1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:AllEVChargers1_EVOverallSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_AllEVChargers1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery1_BatteryAPDropped_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery1_BatteryAPRising_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery1_BatteryAPStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery1_BatteryCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < -0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery1_BatteryDischarging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery1_BatteryNotUsed_Event a sense:EventDetection ;
+    sense:definition "-0.01 <= signal and signal <= 0.01" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery1_BatterySocLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_Battery1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery1_BatterySocNotLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_Battery1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery2_BatteryAPDropped_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery2_BatteryAPRising_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery2_BatteryAPStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:Battery2_BatteryCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < -0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery2_BatteryDischarging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery2_BatteryNotUsed_Event a sense:EventDetection ;
+    sense:definition "-0.01 <= signal and signal <= 0.01" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery2_BatterySocLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Battery2_BatterySocNotLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_Battery2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:BatteryOverview_BatteryAPDropped_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:BatteryOverview_BatteryAPRising_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:BatteryOverview_BatteryAPStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 5 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:BatteryOverview_BatteryCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < -0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:BatteryOverview_BatteryDischarging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 0.01)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:BatteryOverview_BatteryNotUsed_Event a sense:EventDetection ;
+    sense:definition "-0.01 <= signal and signal <= 0.01" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:BatteryOverview_BatterySocLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:BatteryOverview_BatterySocNotLow_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > 16)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :SOC_BatteryOverview_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:Consumer rdfs:subClassOf :,
+        sense:PlatformType .
+
+:EVCharger1 a sense:PlatformOfInterest ;
+    rdfs:label "EVCharger1" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVCharger1_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVCharger1_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger1_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVCharger1_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVCharger1_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger1_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger2 a sense:PlatformOfInterest ;
+    rdfs:label "EVCharger2" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVCharger2_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVCharger2_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger2_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVCharger2_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVCharger2_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger2_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger3 a sense:PlatformOfInterest ;
+    rdfs:label "EVCharger3" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVCharger3_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVCharger3_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger3_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger3_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger3_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVCharger3_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger3_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVCharger3_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger3_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:EVCharger3_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVCharger3_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerDelta1 a sense:PlatformOfInterest ;
+    rdfs:label "EVChargerDelta1" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVChargerDelta1_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVChargerDelta1_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerDelta1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerDelta1_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerDelta1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerDelta1_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerDelta1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVChargerDelta1_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerDelta1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerDelta1_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerDelta1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba1 a sense:PlatformOfInterest ;
+    rdfs:label "EVChargerKeba1" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVChargerKeba1_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVChargerKeba1_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba1_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba1_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba1_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba1_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba2 a sense:PlatformOfInterest ;
+    rdfs:label "EVChargerKeba2" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVChargerKeba2_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVChargerKeba2_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba2_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba2_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba2_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba2_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba2_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba2_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba3 a sense:PlatformOfInterest ;
+    rdfs:label "EVChargerKeba3" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVChargerKeba3_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVChargerKeba3_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba3_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba3_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba3_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba3_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba3_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerKeba3_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba3_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerKeba3_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerKeba3_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerSiCharge1 a sense:PlatformOfInterest ;
+    rdfs:label "EVChargerSiCharge1" ;
+    sense:hasPlatformType :EVCharger ;
+    sosa:hosts :AP_EVChargerSiCharge1_Sensor ;
+    sosa:isHostedBy :AllEVChargers1 .
+
+:EVChargerSiCharge1_EVIndividualDrop_Event a sense:EventDetection ;
+    sense:definition "FallTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerSiCharge1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "fall_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerSiCharge1_EVIndividualHighCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerSiCharge1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:EVChargerSiCharge1_EVIndividualNormalCharging_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerSiCharge1_Sensor ;
+            sense:parameterName "signal" ] ;
+    sense:method "STL" .
+
+:EVChargerSiCharge1_EVIndividualStable_Event a sense:EventDetection ;
+    sense:definition "StableTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerSiCharge1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "maximum_delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "stable_time" ] ;
+    sense:method "CustomMonitor" .
+
+:EVChargerSiCharge1_EVIndividualSurge_Event a sense:EventDetection ;
+    sense:definition "RiseTimeMonitor" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_EVChargerSiCharge1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 40 ;
+            sense:parameterName "delta" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToLiteral 60 ;
+            sense:parameterName "rise_time" ] ;
+    sense:method "CustomMonitor" .
+
+:Garage1_DemandEnvelopeNormal_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal < threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Garage1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:Garage1_DemandEnvelopeViolated_Event a sense:EventDetection ;
+    sense:definition "always[0:0](signal > threshold)" ;
+    sense:hasParameterBinding [ a sense:ParameterBinding ;
+            sense:bindsToSensor :AP_Garage1_Sensor ;
+            sense:parameterName "signal" ],
+        [ a sense:ParameterBinding ;
+            sense:bindsToSensor :OE_Garage1_Sensor ;
+            sense:parameterName "threshold" ] ;
+    sense:method "STL" .
+
+:PVSystem1 a sense:PlatformOfInterest ;
+    rdfs:label "PVSystem1" ;
+    sense:hasPlatformType :PVSystem ;
+    sosa:hosts :AP_PVSystem1_Sensor ;
+    sosa:isHostedBy :Garage1 .
+
+:AP_Garage1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_Garage1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=virt_AP_Garage1_Sensor" ;
+    sosa:isHostedBy :Garage1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :Garage1_DemandEnvelopeNormal_Event,
+        :Garage1_DemandEnvelopeViolated_Event .
+
+:Battery rdfs:subClassOf :Buffer,
+        sense:PlatformType .
+
+:Battery1 a sense:PlatformOfInterest ;
+    rdfs:label "Battery1" ;
+    sense:hasPlatformType :Battery ;
+    sosa:hosts :AP_Battery1_Sensor,
+        :SOC_Battery1_Sensor ;
+    sosa:isHostedBy :BatteryOverview .
+
+:Battery2 a sense:PlatformOfInterest ;
+    rdfs:label "Battery2" ;
+    sense:hasPlatformType :Battery ;
+    sosa:hosts :AP_Battery2_Sensor,
+        :SOC_Battery2_Sensor ;
+    sosa:isHostedBy :BatteryOverview .
+
+:BatteryCharging_Event a sense:EventType ;
+    rdfs:label "BatteryCharging_Event" ;
+    sense:detectedBy :Battery1_BatteryCharging_Event,
+        :Battery2_BatteryCharging_Event,
+        :BatteryOverview_BatteryCharging_Event ;
+    sense:endsStateType :BatteryDischarging_State,
+        :BatteryUnused_State ;
+    sense:startsStateType :BatteryCharging_State .
+
+:BatteryCharging_State a sense:StateType ;
+    rdfs:label "BatteryCharging_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatteryDischarging_Event,
+        :BatteryNotUsed_Event ;
+    sense:hasStartEventType :BatteryCharging_Event ;
+    sense:isTriggerState true .
+
+:BatteryDischarging_Event a sense:EventType ;
+    rdfs:label "BatteryDischarging_Event" ;
+    sense:detectedBy :Battery1_BatteryDischarging_Event,
+        :Battery2_BatteryDischarging_Event,
+        :BatteryOverview_BatteryDischarging_Event ;
+    sense:endsStateType :BatteryCharging_State,
+        :BatteryUnused_State ;
+    sense:startsStateType :BatteryDischarging_State .
+
+:BatteryDischarging_State a sense:StateType ;
+    rdfs:label "BatteryDischarging_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatteryCharging_Event,
+        :BatteryNotUsed_Event ;
+    sense:hasStartEventType :BatteryDischarging_Event ;
+    sense:isTriggerState true .
+
+:BatteryNotUsed_Event a sense:EventType ;
+    rdfs:label "BatteryNotUsed_Event" ;
+    sense:detectedBy :Battery1_BatteryNotUsed_Event,
+        :Battery2_BatteryNotUsed_Event,
+        :BatteryOverview_BatteryNotUsed_Event ;
+    sense:endsStateType :BatteryCharging_State,
+        :BatteryDischarging_State ;
+    sense:startsStateType :BatteryUnused_State .
+
+:EVIndividualHighCharging_State a sense:StateType ;
+    rdfs:label "EVIndividualHighCharging_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:EVCharger ;
+    sense:hasEndEventType :EVIndividualNormalCharging_Event ;
+    sense:hasStartEventType :EVIndividualHighCharging_Event ;
+    sense:isTriggerState true .
+
+:SOC_Battery1_Sensor a sosa:Sensor ;
+    rdfs:label "SOC_Battery1_Sensor" ;
+    sosa:isHostedBy :Battery1 ;
+    sosa:observes :StateOfCharge ;
+    ssn:implements :Battery1_BatterySocLow_Event,
+        :Battery1_BatterySocNotLow_Event .
+
+:SOC_Battery2_Sensor a sosa:Sensor ;
+    rdfs:label "SOC_Battery2_Sensor" ;
+    sosa:isHostedBy :Battery2 ;
+    sosa:observes :StateOfCharge ;
+    ssn:implements :Battery2_BatterySocLow_Event,
+        :Battery2_BatterySocNotLow_Event .
+
+:SOC_BatteryOverview_Sensor a sosa:Sensor ;
+    rdfs:label "SOC_BatteryOverview_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Overview.Battery_SOC" ;
+    sosa:isHostedBy :BatteryOverview ;
+    sosa:observes :StateOfCharge ;
+    ssn:implements :BatteryOverview_BatterySocLow_Event,
+        :BatteryOverview_BatterySocNotLow_Event .
+
+:StateOfCharge a sosa:ObservableProperty .
+
+:BatteryDip_State a sense:StateType ;
+    rdfs:label "BatteryDip_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatteryAPRising_Event,
+        :BatteryAPStable_Event ;
+    sense:hasStartEventType :BatteryAPDropped_Event ;
+    sense:isTriggerState true .
+
+:BatteryDischargeDifference_State a sense:StateType ;
+    rdfs:label "BatteryDischargeDifference_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatteryDischargeDifferenceEnded_Event ;
+    sense:hasStartEventType :BatteryDischargeDifferenceStarted_Event ;
+    sense:isTriggerState true .
+
+:EVIndividualChargingDifference_State a sense:StateType ;
+    rdfs:label "EVIndividualChargingDifference_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:EVCharger ;
+    sense:hasEndEventType :EVIndividualDrop_Event,
+        :EVIndividualStable_Event ;
+    sense:hasStartEventType :EVIndividualSurge_Event ;
+    sense:isTriggerState true .
+
+:BatteryLowSOC_State a sense:StateType ;
+    rdfs:label "BatteryLowSOC_State" ;
+    sense:associatedObservableProperty sense:StateOfCharge ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatterySocNotLow_Event ;
+    sense:hasStartEventType :BatterySocLow_Event ;
+    sense:isTriggerState true .
+
+:BatteryOverview a sense:PlatformOfInterest ;
+    rdfs:label "BatteryOverview" ;
+    sense:hasPlatformType :Battery ;
+    sosa:hosts :AP_BatteryOverview_Sensor,
+        :Battery1,
+        :Battery2,
+        :SOC_BatteryOverview_Sensor ;
+    sosa:isHostedBy :Garage1 .
+
+:BatteryUnused_State a sense:StateType ;
+    rdfs:label "BatteryUnused_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:Battery ;
+    sense:hasEndEventType :BatteryCharging_Event,
+        :BatteryDischarging_Event ;
+    sense:hasStartEventType :BatteryNotUsed_Event ;
+    sense:isTriggerState true .
+
+:EVOverallChargingDifference_State a sense:StateType ;
+    rdfs:label "EVOverallChargingDifference_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:AllEVCharger ;
+    sense:hasEndEventType :EVOverallDrop_Event,
+        :EVOverallStable_Event ;
+    sense:hasStartEventType :EVOverallSurge_Event ;
+    sense:isTriggerState true .
+
+:EVOverallHighCharging_State a sense:StateType ;
+    rdfs:label "EVOverallHighCharging_State" ;
+    sense:associatedObservableProperty sense:ActivePower ;
+    sense:associatedPlatformType sense:AllEVCharger ;
+    sense:hasEndEventType :EVOverallNormalCharging_Event ;
+    sense:hasStartEventType :EVOverallHighCharging_Event ;
+    sense:isTriggerState true .
+
+:AP_AllEVChargers1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_AllEVChargers1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=virt_AP_AllEVChargers1_Sensor" ;
+    sosa:isHostedBy :AllEVChargers1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :AllEVChargers1_EVOverallDrop_Event,
+        :AllEVChargers1_EVOverallHighCharging_Event,
+        :AllEVChargers1_EVOverallNormalCharging_Event,
+        :AllEVChargers1_EVOverallStable_Event,
+        :AllEVChargers1_EVOverallSurge_Event .
+
+:AP_EVCharger1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVCharger1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Ladebox1.P" ;
+    sosa:isHostedBy :EVCharger1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVCharger1_EVIndividualDrop_Event,
+        :EVCharger1_EVIndividualHighCharging_Event,
+        :EVCharger1_EVIndividualNormalCharging_Event,
+        :EVCharger1_EVIndividualStable_Event,
+        :EVCharger1_EVIndividualSurge_Event .
+
+:AP_EVCharger2_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVCharger2_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Ladebox2.P" ;
+    sosa:isHostedBy :EVCharger2 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVCharger2_EVIndividualDrop_Event,
+        :EVCharger2_EVIndividualHighCharging_Event,
+        :EVCharger2_EVIndividualNormalCharging_Event,
+        :EVCharger2_EVIndividualStable_Event,
+        :EVCharger2_EVIndividualSurge_Event .
+
+:AP_EVCharger3_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVCharger3_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Ladebox3.P" ;
+    sosa:isHostedBy :EVCharger3 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVCharger3_EVIndividualDrop_Event,
+        :EVCharger3_EVIndividualHighCharging_Event,
+        :EVCharger3_EVIndividualNormalCharging_Event,
+        :EVCharger3_EVIndividualStable_Event,
+        :EVCharger3_EVIndividualSurge_Event .
+
+:AP_EVChargerDelta1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVChargerDelta1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Delta_Wallbox.Wirkleistung_P" ;
+    sosa:isHostedBy :EVChargerDelta1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVChargerDelta1_EVIndividualDrop_Event,
+        :EVChargerDelta1_EVIndividualHighCharging_Event,
+        :EVChargerDelta1_EVIndividualNormalCharging_Event,
+        :EVChargerDelta1_EVIndividualStable_Event,
+        :EVChargerDelta1_EVIndividualSurge_Event .
+
+:AP_EVChargerKeba1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVChargerKeba1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.KEBA_P30_1.Wirkleistung_P" ;
+    sosa:isHostedBy :EVChargerKeba1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVChargerKeba1_EVIndividualDrop_Event,
+        :EVChargerKeba1_EVIndividualHighCharging_Event,
+        :EVChargerKeba1_EVIndividualNormalCharging_Event,
+        :EVChargerKeba1_EVIndividualStable_Event,
+        :EVChargerKeba1_EVIndividualSurge_Event .
+
+:AP_EVChargerKeba2_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVChargerKeba2_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.KEBA_P30_2.Wirkleistung_P" ;
+    sosa:isHostedBy :EVChargerKeba2 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVChargerKeba2_EVIndividualDrop_Event,
+        :EVChargerKeba2_EVIndividualHighCharging_Event,
+        :EVChargerKeba2_EVIndividualNormalCharging_Event,
+        :EVChargerKeba2_EVIndividualStable_Event,
+        :EVChargerKeba2_EVIndividualSurge_Event .
+
+:AP_EVChargerKeba3_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVChargerKeba3_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.KEBA_P30_3.Wirkleistung_P" ;
+    sosa:isHostedBy :EVChargerKeba3 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVChargerKeba3_EVIndividualDrop_Event,
+        :EVChargerKeba3_EVIndividualHighCharging_Event,
+        :EVChargerKeba3_EVIndividualNormalCharging_Event,
+        :EVChargerKeba3_EVIndividualStable_Event,
+        :EVChargerKeba3_EVIndividualSurge_Event .
+
+:AP_EVChargerSiCharge1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_EVChargerSiCharge1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.SICHARGE_D.Wirkleistung_P" ;
+    sosa:isHostedBy :EVChargerSiCharge1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :EVChargerSiCharge1_EVIndividualDrop_Event,
+        :EVChargerSiCharge1_EVIndividualHighCharging_Event,
+        :EVChargerSiCharge1_EVIndividualNormalCharging_Event,
+        :EVChargerSiCharge1_EVIndividualStable_Event,
+        :EVChargerSiCharge1_EVIndividualSurge_Event .
+
+:Garage1 a sense:PlatformOfInterest ;
+    rdfs:label "Garage1" ;
+    sense:hasPlatformType :Garage ;
+    sosa:hosts :AP_Garage1_Sensor,
+        :AllEVChargers1,
+        :BatteryOverview,
+        :EnvelopeViolation_Garage1_Sensor,
+        :OE_Garage1_Sensor,
+        :PVSystem1 .
+
+:AP_Battery1_Sensor a sosa:Sensor ;
+    rdfs:label "AP_Battery1_Sensor" ;
+    sosa:isHostedBy :Battery1 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :Battery1_BatteryAPDropped_Event,
+        :Battery1_BatteryAPRising_Event,
+        :Battery1_BatteryAPStable_Event,
+        :Battery1_BatteryCharging_Event,
+        :Battery1_BatteryDischarging_Event,
+        :Battery1_BatteryNotUsed_Event .
+
+:AP_Battery2_Sensor a sosa:Sensor ;
+    rdfs:label "AP_Battery2_Sensor" ;
+    sosa:isHostedBy :Battery2 ;
+    sosa:observes :ActivePower ;
+    ssn:implements :Battery2_BatteryAPDropped_Event,
+        :Battery2_BatteryAPRising_Event,
+        :Battery2_BatteryAPStable_Event,
+        :Battery2_BatteryCharging_Event,
+        :Battery2_BatteryDischarging_Event,
+        :Battery2_BatteryNotUsed_Event .
+
+:AP_BatteryOverview_Sensor a sosa:Sensor ;
+    rdfs:label "AP_BatteryOverview_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.Overview.Wirkleistung_P" ;
+    sosa:isHostedBy :BatteryOverview ;
+    sosa:observes :ActivePower ;
+    ssn:implements :BatteryOverview_BatteryAPDropped_Event,
+        :BatteryOverview_BatteryAPRising_Event,
+        :BatteryOverview_BatteryAPStable_Event,
+        :BatteryOverview_BatteryCharging_Event,
+        :BatteryOverview_BatteryDischarging_Event,
+        :BatteryOverview_BatteryNotUsed_Event .
+
+:DemandEnvelopeViolation_State a sense:StateType ;
+    rdfs:label "DemandEnvelopeViolation_State" ;
+    sense:associatedObservableProperty sense:EnvelopeViolation ;
+    sense:associatedPlatformType sense:Garage ;
+    sense:hasEndEventType :DemandEnvelopeNormal_Event ;
+    sense:hasStartEventType :DemandEnvelopeViolated_Event ;
+    sense:isTriggerState true .
+
+:EVCharger rdfs:subClassOf :Consumer,
+        sense:PlatformType .
+
+:AllEVChargers1 a sense:PlatformOfInterest ;
+    rdfs:label "AllEVChargers1" ;
+    sense:hasPlatformType :AllEVCharger ;
+    sosa:hosts :AP_AllEVChargers1_Sensor,
+        :EVCharger1,
+        :EVCharger2,
+        :EVCharger3,
+        :EVChargerDelta1,
+        :EVChargerKeba1,
+        :EVChargerKeba2,
+        :EVChargerKeba3,
+        :EVChargerSiCharge1 ;
+    sosa:isHostedBy :Garage1 .
+
+:ActivePower a sosa:ObservableProperty .
+
+:OE_Garage1_Sensor a sosa:Sensor ;
+    rdfs:label "OE_Garage1_Sensor" ;
+    sense:dataSource "measurement=seehub,field=LEM.SCC.Peakshave_Sollwert_refl" ;
+    sosa:isHostedBy :Garage1 ;
+    sosa:observes :OperatingEnvelope .
+
