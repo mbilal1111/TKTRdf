@@ -1,0 +1,1076 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#AHU> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#AHUmeetingrooms> .
+
+[] a rdf:Statement ;
+    rdf:object "always[0:7200](signal > 50)" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "highEnergy" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b6 .
+
+[] a rdf:Statement ;
+    rdf:object "STL" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "CustomMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "DiffHeatingThreshold1" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object "measurement=smartbuilding,field=Z1Wing14" ;
+    rdf:predicate <http://w3id.org/explainability/sense#dataSource> ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#openhourWindowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasStartEventType> ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b2 .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b13 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object 300 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b3 .
+
+[] a rdf:Statement ;
+    rdf:object sosa:ObservableProperty ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#RoomTemperature> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#Window> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b9 .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b2 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "CustomMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "always[0:0](signal > 0)" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "Z1Heat04P" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#Z1Heat04P> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#highEnergy> ;
+    rdf:predicate <http://w3id.org/explainability/sense#effect> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object true ;
+    rdf:predicate <http://w3id.org/explainability/sense#isTriggerState> ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#weatherStationInfineon> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#AmbTAir01> .
+
+[] a rdf:Statement ;
+    rdf:object "ConstantTemperatureValue causes highEnergy" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:Sensor ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Z1Heat04P> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformOfInterest> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Infineonbuilding> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ConstantTemperatureValue> ;
+    rdf:predicate <http://w3id.org/explainability/sense#startsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#TempStableEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasStartEventType> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object 0.01 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b2 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Window> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b11 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "Z1TAir15" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformOfInterest> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b12 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1Wing14> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14> .
+
+[] a rdf:Statement ;
+    rdf:object "measurement=smartbuilding,field=AmbTAir01" ;
+    rdf:predicate <http://w3id.org/explainability/sense#dataSource> ;
+    rdf:subject <http://example.org/smartbuilding#AmbTAir01> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ConstantTemperatureValue> ;
+    rdf:predicate <http://w3id.org/explainability/sense#endsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ThresholdNormalEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasEndEventType> ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#Room> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempStableEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14_closedWindowEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b10 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#StateTypeCausality> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Facility> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object 14400 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b8 .
+
+[] a rdf:Statement ;
+    rdf:object "parentPlatform" ;
+    rdf:predicate <http://w3id.org/explainability/sense#topologicalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b5 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object "overlaps" ;
+    rdf:predicate <http://w3id.org/explainability/sense#temporalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object "TempChangeLowEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14_closedWindowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "FallTimeMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1Wing14> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b12 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#StateType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "overlaps" ;
+    rdf:predicate <http://w3id.org/explainability/sense#temporalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object "CustomMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "causes" ;
+    rdf:predicate <http://w3id.org/explainability/sense#causalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b4 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#highEnergy> ;
+    rdf:predicate <http://w3id.org/explainability/sense#endsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#highEnergy> ;
+    rdf:predicate <http://w3id.org/explainability/sense#effect> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object "measurement=smartbuilding,field=Z1TAir15" ;
+    rdf:predicate <http://w3id.org/explainability/sense#dataSource> ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object "openhourWindowEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b10 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "ThresholdNormalEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowOpen> ;
+    rdf:predicate <http://w3id.org/explainability/sense#endsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#DiffHeatingThreshold1> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b10 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "delta" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b4 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#WindowState> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedObservableProperty> ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b12 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:Sensor ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object true ;
+    rdf:predicate <http://w3id.org/explainability/sense#isTriggerState> ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b11 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Facility> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#weatherStation> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Heatradiatorroom> ;
+    rdf:predicate sosa:observes ;
+    rdf:subject <http://example.org/smartbuilding#Z1Heat04P> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b12 .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b3 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Building> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Infineonbuilding> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#AHUmeetingrooms> .
+
+[] a rdf:Statement ;
+    rdf:object "ThresholdViolatedEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Facility> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#AHU> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Room> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#AHUmeetingrooms> .
+
+[] a rdf:Statement ;
+    rdf:object "stable_time" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b8 .
+
+[] a rdf:Statement ;
+    rdf:object "windowOpen causes highEnergy" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b10 .
+
+[] a rdf:Statement ;
+    rdf:object 0.01 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b4 .
+
+[] a rdf:Statement ;
+    rdf:object "TempChangeHighEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#TempChangeLowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasEndEventType> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Window> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Building> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#Infineonbuilding> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:Sensor ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object "AmbTAir01" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#AmbTAir01> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:Sensor ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "Room3.16" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b9 .
+
+[] a rdf:Statement ;
+    rdf:object "STL" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#AHUmeetingrooms> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Infineonbuilding> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1TAir15> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b5 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b7 .
+
+[] a rdf:Statement ;
+    rdf:object sosa:ObservableProperty ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Heatradiatorroom> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b13 .
+
+[] a rdf:Statement ;
+    rdf:object "Z1Wing14" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object "always[0:0](signal < 50)" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object true ;
+    rdf:predicate <http://w3id.org/explainability/sense#isTriggerState> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object "measurement=smartbuilding,field=Z1Heat04P" ;
+    rdf:predicate <http://w3id.org/explainability/sense#dataSource> ;
+    rdf:subject <http://example.org/smartbuilding#Z1Heat04P> .
+
+[] a rdf:Statement ;
+    rdf:object "delta" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b2 .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b7 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ConstantTemperatureValue> ;
+    rdf:predicate <http://w3id.org/explainability/sense#cause> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventDetection> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Infineonbuilding> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#weatherStationInfineon> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#DiffHeatingThreshold1> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object "windowWing14" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b5 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "ConstantTemperatureValue" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1TAir15> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b1 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformOfInterest> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#AHUmeetingrooms> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:ObservableProperty ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#HeatDiffRadiator> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#weatherStationInfineon> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Infineonbuilding> .
+
+[] a rdf:Statement ;
+    rdf:object "always[0:0](signal < 0)" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempStableEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b11 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#highEnergy> ;
+    rdf:predicate <http://w3id.org/explainability/sense#startsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#AmbTAir01> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#weatherStationInfineon> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowWing14> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ConstantTemperatureValue> ;
+    rdf:predicate <http://w3id.org/explainability/sense#endsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "rise_time" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b3 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> ;
+    rdf:predicate ssn:implements ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#TempChangeHighEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasEndEventType> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object 0.01 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b7 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#StateType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Facility> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Window> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdNormalEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#RoomTemperature> ;
+    rdf:predicate sosa:observes ;
+    rdf:subject <http://example.org/smartbuilding#Z1TAir15> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#AHUmeetingrooms> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16> ;
+    rdf:predicate sosa:isHostedBy ;
+    rdf:subject <http://example.org/smartbuilding#Z1Heat04P> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Facility> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Building> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#RoomTemperature> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedObservableProperty> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#weatherStation> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#weatherStationInfineon> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b1 .
+
+[] a rdf:Statement ;
+    rdf:object "weatherStationInfineon" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#weatherStationInfineon> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b4 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Facility> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Room> .
+
+[] a rdf:Statement ;
+    rdf:object "maximum_delta" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b7 .
+
+[] a rdf:Statement ;
+    rdf:object "STL" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14_openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "TempStableEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "STL" ;
+    rdf:predicate <http://w3id.org/explainability/sense#method> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#HeatDiffRadiator> ;
+    rdf:predicate sosa:observes ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "fall_time" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b6 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_ThresholdViolatedEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object "Infineonbuilding" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#Infineonbuilding> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#Facility> .
+
+[] a rdf:Statement ;
+    rdf:object "AHUmeetingrooms" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#AHUmeetingrooms> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b8 .
+
+[] a rdf:Statement ;
+    rdf:object "StableTimeMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowOpen> ;
+    rdf:predicate <http://w3id.org/explainability/sense#startsStateType> ;
+    rdf:subject <http://example.org/smartbuilding#openhourWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b1 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#StateTypeCausality> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1Heat04P> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b8 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b1 .
+
+[] a rdf:Statement ;
+    rdf:object "windowOpen" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#HeatDiffRadiator> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedObservableProperty> ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:ObservableProperty ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#WindowState> .
+
+[] a rdf:Statement ;
+    rdf:object "RiseTimeMonitor" ;
+    rdf:predicate <http://w3id.org/explainability/sense#definition> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeHighEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#detectedBy> ;
+    rdf:subject <http://example.org/smartbuilding#TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformOfInterest> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#weatherStationInfineon> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#weatherStation> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#ParameterBinding> ;
+    rdf:predicate rdf:type ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b3 .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformType> ;
+    rdf:predicate rdfs:subClassOf ;
+    rdf:subject <http://example.org/smartbuilding#AHU> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#EventType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#ThresholdViolatedEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#StateType> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1Wing14> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b13 .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b5 .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#windowOpen> ;
+    rdf:predicate <http://w3id.org/explainability/sense#cause> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#closedWindowEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasEndEventType> ;
+    rdf:subject <http://example.org/smartbuilding#windowOpen> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1TAir15> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b9 .
+
+[] a rdf:Statement ;
+    rdf:object sosa:Sensor ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#AmbTAir01> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#DiffHeatingThreshold1> ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToSensor> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b11 .
+
+[] a rdf:Statement ;
+    rdf:object "causes" ;
+    rdf:predicate <http://w3id.org/explainability/sense#causalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality1> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#WindowState> ;
+    rdf:predicate sosa:observes ;
+    rdf:subject <http://example.org/smartbuilding#Z1Wing14> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#Z1TAir15> ;
+    rdf:predicate sosa:hosts ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16> .
+
+[] a rdf:Statement ;
+    rdf:object "samePlatform" ;
+    rdf:predicate <http://w3id.org/explainability/sense#topologicalRelation> ;
+    rdf:subject <http://example.org/smartbuilding#StateTypeCausality2> .
+
+[] a rdf:Statement ;
+    rdf:object 300 ;
+    rdf:predicate <http://w3id.org/explainability/sense#bindsToLiteral> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b6 .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b6 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempChangeLowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#ThresholdViolatedEvent> ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasStartEventType> ;
+    rdf:subject <http://example.org/smartbuilding#highEnergy> .
+
+[] a rdf:Statement ;
+    rdf:object "closedWindowEvent" ;
+    rdf:predicate rdfs:label ;
+    rdf:subject <http://example.org/smartbuilding#closedWindowEvent> .
+
+[] a rdf:Statement ;
+    rdf:object _:nb951448a71ab4737915a97946e6d6d28b9 ;
+    rdf:predicate <http://w3id.org/explainability/sense#hasParameterBinding> ;
+    rdf:subject <http://example.org/smartbuilding#Room3.16_TempStableEvent> .
+
+[] a rdf:Statement ;
+    rdf:object sosa:ObservableProperty ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#AmbientTemperature> .
+
+[] a rdf:Statement ;
+    rdf:object <http://example.org/smartbuilding#AmbientTemperature> ;
+    rdf:predicate sosa:observes ;
+    rdf:subject <http://example.org/smartbuilding#AmbTAir01> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#Facility> ;
+    rdf:predicate <http://w3id.org/explainability/sense#associatedPlatformType> ;
+    rdf:subject <http://example.org/smartbuilding#ConstantTemperatureValue> .
+
+[] a rdf:Statement ;
+    rdf:object <http://w3id.org/explainability/sense#PlatformOfInterest> ;
+    rdf:predicate rdf:type ;
+    rdf:subject <http://example.org/smartbuilding#windowWing14> .
+
+[] a rdf:Statement ;
+    rdf:object "measurement=smartbuilding,field=DiffHeatingThreshold1" ;
+    rdf:predicate <http://w3id.org/explainability/sense#dataSource> ;
+    rdf:subject <http://example.org/smartbuilding#DiffHeatingThreshold1> .
+
+[] a rdf:Statement ;
+    rdf:object "signal" ;
+    rdf:predicate <http://w3id.org/explainability/sense#parameterName> ;
+    rdf:subject _:nb951448a71ab4737915a97946e6d6d28b13 .
+
