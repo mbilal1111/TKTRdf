@@ -6,7 +6,13 @@
 This repository hosts the code and data used in the **SENSE Project** ([https://sense-project.net](https://sense-project.net)), focusing on Explainable Cyber-Physical Systems (ExpCPS).  
 The goal is to evaluate knowledge graph embedding models on data from Smart Building and Smart Grid use cases to improve explainability, efficiency, and sustainability.
 
-![Knowledge Graph Evaluation Pipeline](sense_pipeline.png)
+The evaluation compares three knowledge graph (KG) variants:
+
+- Standard RDF  
+- Reified RDF  
+- TKTRdf (causality-focused)
+
+We apply embedding models TransE, TransH, and ComplEx to these KGs, measuring performance using link prediction metrics with confidence intervals. The evaluation is performed on two real-world CPS use cases: **Smart Building** and **Smart Grid**, capturing the complexity of modern CPS environments.
 
 ## Table of Contents
 - [About the Project](#about-the-project)
@@ -50,26 +56,27 @@ This repository supports those efforts by building **knowledge graph evaluation 
 
 ## Repository Structure
 
-├── data/
-│ ├── SmartbuildingKG.xlsx
-│ ├── SENSEsystemdatasb.ttl
-│ ├── SmartgridKG.xlsx
-│ ├── SENSEsystemdatasg.ttl
-├── code/
-│ └── kg_evaluation.py
-├── results/
-│ └── kg_evaluation_with_ci.xlsx
-├── README.md
+├── Quality metrics script.py # Compute KG structural quality metrics
+├── Working script wit transe, transh, complex, ci and precision.py # Main embedding evaluation pipeline
+├── Results 301025.xlsx # Sample or final results summary
+├── SENSEsystemdataSB.ttl # RDF KG for Smart Building
+├── systemdatasb_reified.ttl # Reified RDF KG for Smart Building
+├── SmartbuildingKG.xlsx # TKTRdf (Excel) KG for Smart Building
+├── SENSEsystemdataSG.ttl # RDF KG for Smart Grid
+├── systemdatasg_reified.ttl # Reified RDF KG for Smart Grid
+├── SmartgridKG.xlsx # TKTRdf (Excel) KG for Smart Grid
+├── README.md # This file
 
 
 ## Code Overview
 
-The main script `kg_evaluation.py`:
+The main script `working_file....py`:
 1. Reads and converts knowledge graph data from Excel and RDF.
-2. Generates triples for model training and testing.
-3. Runs PyKEEN pipelines across several embedding models.
-4. Computes evaluation metrics and confidence intervals.
-5. Exports results to an Excel summary.
+2. Convert RDF into reified RDF to enable metadata on statements.  
+3. Generates triples for model training and testing.
+4. Runs PyKEEN pipelines across several embedding models.
+5. Computes evaluation metrics and confidence intervals.
+6. Exports results to an Excel summary.
 
 ## Built With
 
@@ -79,7 +86,8 @@ The main script `kg_evaluation.py`:
 - numpy  
 - rdflib  
 - scikit-learn  
-- openpyxl  
+- openpyxl
+- networkx 
 
 ## Getting Started
 
@@ -108,18 +116,57 @@ The script executes multiple training runs per model, computes performance metri
 results/kg_evaluation_with_ci.xlsx (you will need to change the location of the output file or the name so the next time the script is run with a new use case the file is not overwritten)
 
 
-Each output file includes metrics and 95% confidence intervals across models:
-- TransE
-- TransH
-- ComplEx
+This performs embedding training and evaluation on RDF, Reified RDF, and TKTRdf graphs across embedding models. Results with confidence intervals are saved to `kg_evaluation_with_ci.xlsx`.
+
+## Results
+The evaluation comprises two main result types: 
+These are reported separately for RDF, Reified RDF, and TKTRdf graphs, showing the influence of causal semantics and reification on embedding performance and explainability.
+
+
+**1. Embedding Evaluation Results**
+Performance metrics such as:
+
+Mean Reciprocal Rank (MRR)
+
+Mean Rank (MR)
+
+Hits@10
+
+Transition Precision & Recall
+
+are computed for each embedding model (TransE, TransH, ComplEx) across the three KG variants (RDF, Reified RDF, TKTRdf). These metrics show the predictive quality and explainability of event–state relationships. The results with calculated 95% confidence intervals are saved in:
+
+kg_evaluation_with_ci.xlsx
+
+This file details model performance per KG type and use case, enabling comparative analysis.
+
+**2. Graph Quality Metrics**
+Structural quality metrics provide insight into the underlying knowledge graph topology and content, influencing model training and interpretability. These include:
+
+Coverage (Entities and Relations): How many unique entities and relations the KG contains, indicating breadth of domain representation.
+
+Average Degree: The typical connectivity of entities, showing graph density.
+
+Connected Components: The number of isolated subgraphs, reflecting graph fragmentation or modularity.
+
+Degree and Relation Standard Deviations: The variability of connections per entity and frequency of relation types, showing graph heterogeneity or balance.
+
+Clustering Coefficient: The tendency of nodes to form tightly connected groups, indicating graph transitivity and complexity.
+
+These metrics are computed for each KG variant and are saved in:
+
+kg_quality_metrics_sg.xlsx
+
+Together, these quality metrics complement embedding evaluation by highlighting structural differences between RDF, Reified RDF, and TKTRdf graphs, helping interpret the impact of causal semantics and graph design on link prediction performance.
+
 
 ## Results
 
 The evaluation table shows MRR, MR, and Hits@10 values along with transition precision and recall for both knowledge graph types (RDF and Excel).  
 Results are stored in the Excel file with the following structure:
 
-| Metric | TransE RDF | TransE TKTrdf | TransH RDF | TransH TKTrdf | ComplEx RDF | ComplEx TKTrdf |
-|---------|-------------|---------------|-------------|---------------|--------------|----------------|
+| Metric | TransE RDF | TransE Reified |  TransE TKTrdf | TransH RDF |  TransH Reified | TransH TKTrdf | ComplEx RDF | | ComplEx Reified | ComplEx TKTrdf |
+|---------|-------------|---------------|-------------|---------------|--------------|----------------||---------------|-----------------||---------------|
 
 ## License
 
