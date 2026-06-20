@@ -1,0 +1,27 @@
+from pykeen.pipeline import pipeline
+import torch
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+def run_model(train_tf, test_tf, model_name):
+    result = pipeline(
+        training=train_tf,
+        testing=test_tf,
+        model=model_name,
+        training_kwargs=dict(num_epochs=50),
+        optimizer="adam",
+        optimizer_kwargs=dict(lr=0.01),
+        evaluator_kwargs=dict(filtered=True),
+        random_seed=42,
+        device=DEVICE
+    )
+
+    metrics = result.metric_results.to_dict()
+
+    return {
+        "MRR": metrics["both.realistic.mean_reciprocal_rank"],
+        "MR": metrics["both.realistic.mean_rank"],
+        "H@1": metrics["both.realistic.hits_at_1"],
+        "H@3": metrics["both.realistic.hits_at_3"],
+        "H@10": metrics["both.realistic.hits_at_10"],
+    }
