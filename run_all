@@ -3,53 +3,62 @@
 set -e  # Stop on first error
 
 echo "===================================="
-echo "  TKTRdf FULL REPRODUCTION PIPELINE"
+echo " TKTRdf FULL REPRODUCTION PIPELINE"
 echo "===================================="
 
 # -------------------------------
 # STEP 0: Environment check
 # -------------------------------
-echo "[0/5] Checking Python..."
+echo "[0/6] Checking Python..."
 
 python --version || { echo "❌ Python not found"; exit 1; }
 
 # -------------------------------
 # STEP 1: Install dependencies
 # -------------------------------
-echo "[1/5] Installing dependencies..."
+echo "[1/6] Installing dependencies..."
 
 pip install -r requirements.txt
 
 # -------------------------------
-# STEP 2: Generate splits
+# STEP 2: Convert raw Excel → RDF
 # -------------------------------
-echo "[2/5] Creating dataset splits..."
+echo "[2/6] Converting KG.xlsx to RDF representations..."
+
+python scripts/preprocessing/convert_xlsx_to_all.py
+
+# -------------------------------
+# STEP 3: Generate splits
+# -------------------------------
+echo "[3/6] Creating dataset splits..."
 
 python scripts/splits/create_triple_split.py
 python scripts/splits/create_event_split.py
 
 # -------------------------------
-# STEP 3: Run experiments
+# STEP 4: Run experiments
 # -------------------------------
-echo "[3/5] Running KGE experiments..."
+echo "[4/6] Running KGE experiments..."
 
 python run_experiment.py
 
 # -------------------------------
-# STEP 4: Evaluate chain prediction
+# STEP 5: Evaluate chain prediction
 # -------------------------------
-echo "[4/5] Evaluating chain prediction..."
+echo "[5/6] Evaluating transition-chain prediction..."
 
 python scripts/evaluation/evaluate_chain_prediction.py
 
 # -------------------------------
-# STEP 5: Completion
+# STEP 6: Completion
 # -------------------------------
-echo "[5/5] Pipeline complete"
+echo "[6/6] Pipeline complete"
 
 echo "===================================="
 echo "✅ ALL RESULTS GENERATED"
-echo "Outputs available in:"
+echo ""
+echo "📁 Outputs available in:"
+echo " - data/*/*/all.txt (generated RDF graphs)"
 echo " - results/"
 echo " - tables/"
 echo "===================================="
