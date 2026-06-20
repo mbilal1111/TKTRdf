@@ -1,67 +1,164 @@
-import pandas as pd
 import os
+import re
+import pandas as pd
+
 
 DATASETS = ["smart_building", "smart_grid"]
 
-def ensure_dir(path):
+RAW_FILE_NAME = "KG.xlsx"
+
+# Exact columns in the Excel file
+COL_PROBLEM = "Problem"
+COL_CLASS = "Class"
+COL_TYPE = "Type"
+COL_OBJECT = "Object"
+COL_HAS_STATE = "hasState"
+COL_SUBJECT = "Subject"
+COL_PREDICATE = "Predicate"
+COL_ENTITY = "Entity"
+COL_STATE = "State"
+
+
+def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
-def convert(dataset):
-    raw_path = f"data/{dataset}/raw/KG.xlsx"
-    df = pd.read_excel(raw_path)
 
-    # EXPECTED COLUMNS:
-    # event_id, subject, predicate, entity, prior_state, state
+def clean_term(value) -> str:
+    """
+    Convert Excel cell values into safe KG terms.
+    Spaces and special characters are normalized to underscores.
+    """
+    if pd.isna(value):
+        return ""
+
+    value = str(value).strip()
+
+    # Replace spaces and unsupported characters with underscores
+    value = re.sub(r"\s+", "_", value)
+    value = re.sub(r"[^A-Za-z0-9_:.-]", "_", value)
+
+    return value
+
+
+def get_prior_state(row) -> str:
+    """
+    The Excel file contains both Object and hasState.
+    For transition modeling, hasState is used as the prior-state value.
+    If hasState is empty, Object is used as fallback.
+    """
+    has_state = clean_term(row.get(COL_HAS_STATE, ""))
+    obj = clean_term(row.get(COL_OBJECT, ""))
+
+    if has_state:
+        return has_state
+
+    return obj
+
+
+def get_event_id(dataset: str, index: int, row) -> str:
+    """
+    Use Problem as event identifier when available.
+    Otherwise create a deterministic row-based event ID.
+    """
+    problem = clean_term(row.get(COL_PROBLEM, ""))
+
+    if problem:
+        return f"{dataset}:{problem}_{index + 1}"
+
+    return f"{dataset}:Event_{index + 1}"
+
+
+def convert_dataset(dataset: str) -> None:
+    raw_path = f"data/{dataset}/raw/{RAW_FILE_NAME}"
+
+    if not os.path.exists(raw_path):
+        raise FileNotFoundError(f"Missing raw file: {raw_path}")
+
+    df = pd.read_excel(raw_path, engine="openpyxl")
+
+    required_columns = [
+        COL_PROBLEM,
+        COL_CLASS,
+        COL_TYPE,
+        COL_OBJECT,
+        COL_HAS_STATE,
+        COL_SUBJECT,
+        COL_PREDICATE,
+        COL_ENTITY,
+        COL_STATE,
+    ]
+
+    missing = [col for col in required_columns if col not in df.columns]
+
+    if missing:
+        raise ValueError(
+            f"Missing columns in {raw_path}: {missing}\n"
+            f"Found columns: {list(df.columns)}"
+        )
 
     for rep in ["tktrdf", "reification", "nary"]:
-
         output_dir = f"data/{dataset}/{rep}"
         ensure_dir(output_dir)
 
         triples = []
 
-        for _, row in df.iterrows():
-            e = row["event_id"]
+        for idx, row in df.iterrows():
+            event_id = get_event_id(dataset, idx, row)
+
+            subject = clean_term(row[COL_SUBJECT])
+            predicate = clean_term(row[COL_PREDICATE])
+            entity = clean_term(row[COL_ENTITY])
+            prior_state = get_prior_state(row)
+            state = clean_term(row[COL_STATE])
+
+            # Skip incomplete rows
+            if not all([subject, predicate, entity, prior_state, state]):
+                continue
 
             if rep == "tktrdf":
                 triples.extend([
-                    [e, "tktrdf:subject", row["subject"]],
-                    [e, "tktrdf:predicate", row["predicate"]],
-                    [e, "tktrdf:entity", row["entity"]],
-                    [e, "tktrdf:priorstate", row["prior_state"]],
-                    [e, "tktrdf:state", row["state"]],
+                    [event_id, "rdf:type", "tktrdf:Event"],
+                    [event_id, "tktrdf:subject", subject],
+                    [event_id, "tktrdf:predicate", predicate],
+                    [event_id, "tktrdf:entity", entity],
+                    [event_id, "tktrdf:priorstate", prior_state],
+                    [event_id, "tktrdf:state", state],
                 ])
 
             elif rep == "reification":
                 triples.extend([
-                    [e, "rdf:subject", row["subject"]],
-                    [e, "rdf:predicate", row["predicate"]],
-                    [e, "rdf:object", row["entity"]],
-                    [row["entity"], "ex:priorState", row["prior_state"]],
-                    [row["entity"], "ex:resultingState", row["state"]],
+                    [event_id, "rdf:type", "rdf:Statement"],
+                    [event_id, "rdf:subject", subject],
+                    [event_id, "rdf:predicate", predicate],
+                    [event_id, "rdf:object", entity],
+                    [entity, "ex:priorState", prior_state],
+                    [entity, "ex:resultingState", state],
                 ])
 
             elif rep == "nary":
                 triples.extend([
-                    [e, "ex:hasSubject", row["subject"]],
-                    [e, "ex:hasAction", row["predicate"]],
-                    [e, "ex:hasEntity", row["entity"]],
-                    [e, "ex:hasPriorState", row["prior_state"]],
-                    [e, "ex:hasResultingState", row["state"]],
+                    [event_id, "rdf:type", "ex:Transition"],
+                    [event_id, "ex:hasSubject", subject],
+                    [event_id, "ex:hasAction", predicate],
+                    [event_id, "ex:hasEntity", entity],
+                    [event_id, "ex:hasPriorState", prior_state],
+                    [event_id, "ex:hasResultingState", state],
                 ])
 
+        output_file = f"{output_dir}/all.txt"
+
         pd.DataFrame(triples).to_csv(
-            f"{output_dir}/all.txt",
+            output_file,
             sep=" ",
             index=False,
             header=False
         )
 
-        print(f"✅ {dataset} → {rep} generated")
+        print(f"Generated: {output_file} ({len(triples)} triples)")
 
 
 if __name__ == "__main__":
-    for ds in DATASETS:
-        convert(ds)
+    for dataset_name in DATASETS:
+        convert_dataset(dataset_name)
 
-    print("✅ All RDF representations generated from KG.xlsx")
+    print("All RDF representations generated from KG.xlsx files.")
