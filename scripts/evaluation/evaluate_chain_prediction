@@ -1,0 +1,14 @@
+import pandas as pd
+import os
+
+INPUT_FILE = "results/raw/all_results.csv"
+OUTPUT_FILE = "results/aggregate/chain_prediction_summary.csv"
+
+df = pd.read_csv(INPUT_FILE)
+
+# placeholder: same aggregation logic as main script
+summary = df.groupby(["dataset", "representation"]).mean(numeric_only=True)
+
+summary.to_csv(OUTPUT_FILE)
+
+print("✅ Chain prediction summary saved")
