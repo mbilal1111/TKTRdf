@@ -1,5 +1,4 @@
 import os
-import json
 import pandas as pd
 from pykeen.pipeline import pipeline
 from pykeen.triples import TriplesFactory
@@ -27,8 +26,12 @@ os.makedirs(AGG_PATH, exist_ok=True)
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # ================================
-# LOAD DATA
+# HELPERS
 # ================================
+
+def check_path(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Missing file: {path}")
 
 def load_triples(path):
     return TriplesFactory.from_path(
@@ -77,8 +80,19 @@ for dataset in DATASETS:
         train_path = f"{BASE_PATH}/{dataset}/{rep}/train.txt"
         test_path = f"{BASE_PATH}/{dataset}/{rep}/test.txt"
 
+        # ✅ NEW: explicit checks
+        check_path(train_path)
+        check_path(test_path)
+
         train_tf = load_triples(train_path)
-        test_tf = load_triples(test_path).map_triples(train_tf)
+
+        # ✅ FIXED: consistent entity/relation mapping
+        test_tf = TriplesFactory.from_path(
+            test_path,
+            entity_to_id=train_tf.entity_to_id,
+            relation_to_id=train_tf.relation_to_id,
+            create_inverse_triples=False
+        )
 
         for model in MODELS:
             print(f"-> Model: {model}")
@@ -104,13 +118,14 @@ df.to_csv(f"{RESULTS_PATH}/all_results.csv", index=False)
 print("\nSaved raw results.")
 
 # ================================
-# AGGREGATE RESULTS (FOR TABLE VIII)
+# AGGREGATE RESULTS (TABLE VIII)
 # ================================
 
 def compute_wins(df, metric, higher_better=True):
     wins = []
 
     for (dataset, model), group in df.groupby(["dataset", "model"]):
+
         if higher_better:
             best = group[metric].max()
         else:
