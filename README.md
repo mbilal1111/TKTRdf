@@ -43,9 +43,10 @@ This ensures that observed differences in learning performance are attributable 
 ```
 tktrdf-benchmark/
 │
-├── README.md
-├── LICENSE
+├── run_all.sh              ← ✅ One-command entry point
+├── run_experiment.py
 ├── requirements.txt
+├── README.md
 │
 ├── data/
 │   ├── smart_building/
@@ -57,9 +58,7 @@ tktrdf-benchmark/
 │   └── evaluation/
 │
 ├── results/
-│   ├── mrr/
-│   ├── mr/
-│   ├── hits/
+│   ├── raw/
 │   ├── aggregate/
 │   └── figures/
 │
@@ -93,7 +92,7 @@ Each representation uses the same:
 
 ## Dataset Format
 
-Triples are stored in standard format:
+Triples are stored as:
 
 ```
 head relation tail
@@ -109,46 +108,51 @@ HVACUnit1 resultingState CoolingOn
 
 ---
 
-## Reproducibility Pipeline
+## ✅ One-Command Reproducibility
 
-### 1. Install dependencies
+To reproduce all experiments and results:
+
+```bash
+bash run_all.sh
+```
+
+This will:
+
+1. Install dependencies  
+2. Generate dataset splits (triple-level + event-level)  
+3. Train all KGE models  
+4. Evaluate transition-chain prediction  
+5. Produce final results  
+
+Outputs will be available in:
+
+- `results/`
+- `tables/`
+
+---
+
+## Manual Execution (Optional)
+
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 2. Generate dataset splits
+### Generate splits
 
 ```bash
 python scripts/splits/create_triple_split.py
 python scripts/splits/create_event_split.py
 ```
 
----
-
-### 3. Run KGE models
+### Run experiments
 
 ```bash
-python scripts/evaluation/run_kge_models.py
+python run_experiment.py
 ```
 
-Models evaluated:
-
-- TransE  
-- TransH  
-- TransR  
-- DistMult  
-- ComplEx  
-- SimplE  
-- RESCAL  
-- ConvE  
-- TuckER  
-
----
-
-### 4. Evaluate transition-chain prediction
+### Evaluate results
 
 ```bash
 python scripts/evaluation/evaluate_chain_prediction.py
@@ -160,7 +164,7 @@ python scripts/evaluation/evaluate_chain_prediction.py
 
 ### 1. Generic Link Prediction
 
-Standard prediction of missing triples using ranking metrics:
+Standard prediction of missing triples using:
 
 - Mean Reciprocal Rank (MRR)
 - Mean Rank (MR)
@@ -170,16 +174,16 @@ Standard prediction of missing triples using ranking metrics:
 
 ### 2. Transition-Chain Prediction
 
-A task-aligned benchmark where models predict the **next transition in a sequence**, evaluating:
+A task where models predict the **next transition in a sequence**, evaluating:
 
-- sequential reasoning
-- transition structure learning
+- sequential reasoning  
+- transition structure learning  
 
 ---
 
 ## Results
 
-All experimental results are provided in:
+Results are stored in:
 
 ```
 results/
@@ -187,11 +191,9 @@ results/
 
 Including:
 
-- MRR results  
-- MR results  
-- Hits@K results  
-- Aggregate comparisons  
-- Figures used in the paper  
+- raw model outputs  
+- aggregated metrics  
+- figures used in the paper  
 
 ---
 
@@ -218,7 +220,7 @@ Including:
   - **metric-dependent**
   - **evaluation-dependent**
 
-These results demonstrate that structural regularity improves **ranking robustness**, but does not uniformly improve exact-ranking performance.
+These results show that structural regularity improves **ranking robustness**, but does not uniformly improve exact-ranking performance.
 
 ---
 
@@ -227,6 +229,7 @@ These results demonstrate that structural regularity improves **ranking robustne
 - All models share identical hyperparameters across representations  
 - Graph construction is fully controlled to eliminate confounding factors  
 - Event-level splits prevent leakage between training and test sets  
+- All experiments use a fixed random seed (42) for reproducibility  
 
 ---
 
@@ -253,10 +256,9 @@ If you use this work, please cite:
 
 ## Contact
 
-For questions or collaboration:
-
-- Mohammad Bilal  = mohammad.bilal@tuwien.ac.at
+- Mohammad Bilal  
 - TU Wien – Automation Systems  
+- mohammad.bilal@tuwien.ac.at  
 
 ---
 
