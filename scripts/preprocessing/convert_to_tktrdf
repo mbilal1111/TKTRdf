@@ -1,0 +1,17 @@
+import pandas as pd
+
+def convert_to_tktrdf(input_file, output_file):
+    df = pd.read_csv(input_file, sep=",")  # assuming structured source
+
+    triples = []
+
+    for _, row in df.iterrows():
+        e = row["event_id"]
+
+        triples.append([e, "tktrdf:subject", row["subject"]])
+        triples.append([e, "tktrdf:predicate", row["predicate"]])
+        triples.append([e, "tktrdf:entity", row["entity"]])
+        triples.append([e, "tktrdf:priorstate", row["prior_state"]])
+        triples.append([e, "tktrdf:state", row["state"]])
+
+    pd.DataFrame(triples).to_csv(output_file, sep=" ", index=False, header=False)
