@@ -1,11 +1,10 @@
-
 ## Reproducibility Pipeline
 
 ```mermaid
 flowchart LR
 
-A[Raw Data<br>data/*/raw/] --> B[Preprocessing Scripts]
-B --> C[Generated RDF Representations<br>tktrdf / reification / nary]
+A[Raw Data<br>data/*/raw/KG.xlsx] --> B[Preprocessing<br>convert_xlsx_to_all.py]
+B --> C[Generated RDF<br>tktrdf / reification / nary]
 
 C --> D[Split Generation<br>Triple + Event]
 D --> E[Train KGE Models<br>9 Models]
@@ -15,8 +14,9 @@ F --> G[Transition-Chain Evaluation]
 
 G --> H[Results<br>results/]
 H --> I[Tables<br>tables/]
-
 ```
+
+---
 
 # TKTRdf Benchmark: RDF Event–State Transition Representations
 
@@ -63,17 +63,27 @@ This ensures that observed differences in learning performance are attributable 
 ```
 tktrdf-benchmark/
 │
-├── run_all.sh              ← ✅ One-command entry point
+├── run_all.sh
 ├── run_experiment.py
 ├── requirements.txt
 ├── README.md
 │
 ├── data/
 │   ├── smart_building/
+│   │   ├── raw/KG.xlsx
+│   │   ├── tktrdf/
+│   │   ├── reification/
+│   │   └── nary/
+│   │
 │   └── smart_grid/
+│       ├── raw/KG.xlsx
+│       ├── tktrdf/
+│       ├── reification/
+│       └── nary/
 │
 ├── scripts/
 │   ├── preprocessing/
+│   │   └── convert_xlsx_to_all.py
 │   ├── splits/
 │   └── evaluation/
 │
@@ -96,58 +106,60 @@ The repository includes two datasets:
 - **Smart Building**
 - **Smart Grid**
 
-Each dataset is provided in three RDF representations:
+### Raw Data (Original Knowledge)
+
+Raw domain knowledge is provided as Excel files:
+
+```
+data/smart_building/raw/KG.xlsx
+data/smart_grid/raw/KG.xlsx
+```
+
+Each file contains structured transition information with columns:
+
+```
+Problem, Class, Type, Object, hasState, Subject, Predicate, Entity, State
+```
+
+### RDF Representations
+
+During the pipeline, these files are automatically converted into three RDF representations:
 
 - `tktrdf/`
 - `reification/`
 - `nary/`
 
-Each representation uses the same:
-
-- entities  
-- relations  
-- transition semantics  
-
----
-
-## Dataset Format
-
-Triples are stored as:
+The generated graphs are stored as:
 
 ```
-head relation tail
-```
-
-Example:
-
-```
-Sensor1 detects Room101
-HVACUnit1 priorState CoolingOff
-HVACUnit1 resultingState CoolingOn
+data/<dataset>/<representation>/all.txt
 ```
 
 ---
 
 ## ✅ One-Command Reproducibility
 
-To reproduce all experiments and results:
+To reproduce the full benchmark from raw Excel data:
 
 ```bash
 bash run_all.sh
 ```
 
-This will:
+This pipeline performs:
 
 1. Install dependencies  
-2. Generate dataset splits (triple-level + event-level)  
-3. Train all KGE models  
-4. Evaluate transition-chain prediction  
-5. Produce final results  
+2. Convert KG.xlsx → RDF graphs  
+3. Generate dataset splits (triple-level + event-level)  
+4. Train all KGE models  
+5. Evaluate transition-chain prediction  
+6. Produce results and tables  
 
-Outputs will be available in:
+Outputs are stored in:
 
-- `results/`
-- `tables/`
+```
+results/
+tables/
+```
 
 ---
 
@@ -157,6 +169,12 @@ Outputs will be available in:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Convert Excel → RDF
+
+```bash
+python scripts/preprocessing/convert_xlsx_to_all.py
 ```
 
 ### Generate splits
@@ -184,7 +202,7 @@ python scripts/evaluation/evaluate_chain_prediction.py
 
 ### 1. Generic Link Prediction
 
-Standard prediction of missing triples using:
+Standard prediction of missing triples evaluated using:
 
 - Mean Reciprocal Rank (MRR)
 - Mean Rank (MR)
@@ -236,20 +254,23 @@ Including:
   - **MR**
 - TKTRdf performs strongest on:
   - **Hits@K (especially H@10)**
-- Representation performance is:
-  - **metric-dependent**
-  - **evaluation-dependent**
 
-These results show that structural regularity improves **ranking robustness**, but does not uniformly improve exact-ranking performance.
+Performance is:
+
+- metric-dependent  
+- evaluation-dependent  
+
+Structural regularity improves **ranking robustness**, but does not uniformly improve exact-ranking performance.
 
 ---
 
 ## Implementation Notes
 
 - All models share identical hyperparameters across representations  
-- Graph construction is fully controlled to eliminate confounding factors  
-- Event-level splits prevent leakage between training and test sets  
-- All experiments use a fixed random seed (42) for reproducibility  
+- Graph construction is fully controlled  
+- All representations contain identical node sets and triple counts  
+- Event-level splits prevent leakage  
+- Fixed random seed (42) ensures reproducibility  
 
 ---
 
