@@ -1,0 +1,67 @@
+import pandas as pd
+import os
+
+DATASETS = ["smart_building", "smart_grid"]
+
+def ensure_dir(path):
+    os.makedirs(path, exist_ok=True)
+
+def convert(dataset):
+    raw_path = f"data/{dataset}/raw/KG.xlsx"
+    df = pd.read_excel(raw_path)
+
+    # EXPECTED COLUMNS:
+    # event_id, subject, predicate, entity, prior_state, state
+
+    for rep in ["tktrdf", "reification", "nary"]:
+
+        output_dir = f"data/{dataset}/{rep}"
+        ensure_dir(output_dir)
+
+        triples = []
+
+        for _, row in df.iterrows():
+            e = row["event_id"]
+
+            if rep == "tktrdf":
+                triples.extend([
+                    [e, "tktrdf:subject", row["subject"]],
+                    [e, "tktrdf:predicate", row["predicate"]],
+                    [e, "tktrdf:entity", row["entity"]],
+                    [e, "tktrdf:priorstate", row["prior_state"]],
+                    [e, "tktrdf:state", row["state"]],
+                ])
+
+            elif rep == "reification":
+                triples.extend([
+                    [e, "rdf:subject", row["subject"]],
+                    [e, "rdf:predicate", row["predicate"]],
+                    [e, "rdf:object", row["entity"]],
+                    [row["entity"], "ex:priorState", row["prior_state"]],
+                    [row["entity"], "ex:resultingState", row["state"]],
+                ])
+
+            elif rep == "nary":
+                triples.extend([
+                    [e, "ex:hasSubject", row["subject"]],
+                    [e, "ex:hasAction", row["predicate"]],
+                    [e, "ex:hasEntity", row["entity"]],
+                    [e, "ex:hasPriorState", row["prior_state"]],
+                    [e, "ex:hasResultingState", row["state"]],
+                ])
+
+        pd.DataFrame(triples).to_csv(
+            f"{output_dir}/all.txt",
+            sep=" ",
+            index=False,
+            header=False
+        )
+
+        print(f"✅ {dataset} → {rep} generated")
+
+
+if __name__ == "__main__":
+    for ds in DATASETS:
+        convert(ds)
+
+    print("✅ All RDF representations generated from KG.xlsx")
