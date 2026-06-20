@@ -1,0 +1,30 @@
+import os
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+BASE_PATH = "data"
+OUTPUT_RATIO = (0.8, 0.2)
+
+def split_triples(file_path):
+    df = pd.read_csv(file_path, sep=" ", header=None, names=["h", "r", "t"])
+
+    train, test = train_test_split(df, test_size=OUTPUT_RATIO[1], random_state=42)
+
+    return train, test
+
+def process_dataset(dataset, rep):
+    base = f"{BASE_PATH}/{dataset}/{rep}"
+
+    input_file = f"{base}/all.txt"
+
+    train, test = split_triples(input_file)
+
+    train.to_csv(f"{base}/train.txt", sep=" ", header=False, index=False)
+    test.to_csv(f"{base}/test.txt", sep=" ", header=False, index=False)
+
+if __name__ == "__main__":
+    for dataset in ["smart_building", "smart_grid"]:
+        for rep in ["reification", "nary", "tktrdf"]:
+            process_dataset(dataset, rep)
+
+    print("✅ Triple-level split complete")
