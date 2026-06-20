@@ -1,3 +1,23 @@
+
+## Reproducibility Pipeline
+
+```mermaid
+flowchart LR
+
+A[Raw Data<br>data/*/raw/] --> B[Preprocessing Scripts]
+B --> C[Generated RDF Representations<br>tktrdf / reification / nary]
+
+C --> D[Split Generation<br>Triple + Event]
+D --> E[Train KGE Models<br>9 Models]
+
+E --> F[Evaluation<br>MRR / MR / Hits@K]
+F --> G[Transition-Chain Evaluation]
+
+G --> H[Results<br>results/]
+H --> I[Tables<br>tables/]
+
+```
+
 # TKTRdf Benchmark: RDF Event–State Transition Representations
 
 This repository accompanies the paper:
