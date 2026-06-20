@@ -1,0 +1,165 @@
+import os
+import json
+import pandas as pd
+from pykeen.pipeline import pipeline
+from pykeen.triples import TriplesFactory
+import torch
+
+# ================================
+# CONFIG
+# ================================
+
+DATASETS = ["smart_building", "smart_grid"]
+REPRESENTATIONS = ["reification", "nary", "tktrdf"]
+MODELS = [
+    "TransE", "TransH", "TransR",
+    "DistMult", "ComplEx", "SimplE",
+    "RESCAL", "ConvE", "TuckER"
+]
+
+BASE_PATH = "data"
+RESULTS_PATH = "results/raw"
+AGG_PATH = "results/aggregate"
+
+os.makedirs(RESULTS_PATH, exist_ok=True)
+os.makedirs(AGG_PATH, exist_ok=True)
+
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+# ================================
+# LOAD DATA
+# ================================
+
+def load_triples(path):
+    return TriplesFactory.from_path(
+        path,
+        create_inverse_triples=False
+    )
+
+# ================================
+# TRAIN + EVALUATE MODEL
+# ================================
+
+def run_model(train_tf, test_tf, model_name):
+    result = pipeline(
+        training=train_tf,
+        testing=test_tf,
+        model=model_name,
+        training_kwargs=dict(num_epochs=50),
+        optimizer="adam",
+        optimizer_kwargs=dict(lr=0.01),
+        evaluator_kwargs=dict(filtered=True),
+        random_seed=42,
+        device=DEVICE
+    )
+
+    metrics = result.metric_results.to_dict()
+
+    return {
+        "MRR": metrics["both.realistic.mean_reciprocal_rank"],
+        "MR": metrics["both.realistic.mean_rank"],
+        "H@1": metrics["both.realistic.hits_at_1"],
+        "H@3": metrics["both.realistic.hits_at_3"],
+        "H@10": metrics["both.realistic.hits_at_10"],
+    }
+
+# ================================
+# MAIN EXPERIMENT
+# ================================
+
+all_results = []
+
+for dataset in DATASETS:
+    for rep in REPRESENTATIONS:
+
+        print(f"\n=== Running: {dataset} | {rep} ===")
+
+        train_path = f"{BASE_PATH}/{dataset}/{rep}/train.txt"
+        test_path = f"{BASE_PATH}/{dataset}/{rep}/test.txt"
+
+        train_tf = load_triples(train_path)
+        test_tf = load_triples(test_path).map_triples(train_tf)
+
+        for model in MODELS:
+            print(f"-> Model: {model}")
+
+            metrics = run_model(train_tf, test_tf, model)
+
+            row = {
+                "dataset": dataset,
+                "representation": rep,
+                "model": model,
+                **metrics
+            }
+
+            all_results.append(row)
+
+# ================================
+# SAVE RAW RESULTS
+# ================================
+
+df = pd.DataFrame(all_results)
+df.to_csv(f"{RESULTS_PATH}/all_results.csv", index=False)
+
+print("\nSaved raw results.")
+
+# ================================
+# AGGREGATE RESULTS (FOR TABLE VIII)
+# ================================
+
+def compute_wins(df, metric, higher_better=True):
+    wins = []
+
+    for (dataset, model), group in df.groupby(["dataset", "model"]):
+        if higher_better:
+            best = group[metric].max()
+        else:
+            best = group[metric].min()
+
+        best_rows = group[group[metric] == best]
+
+        for _, row in best_rows.iterrows():
+            wins.append(row["representation"])
+
+    return pd.Series(wins).value_counts()
+
+agg_results = {}
+
+for metric, higher in [
+    ("MRR", True),
+    ("MR", False),
+    ("H@1", True),
+    ("H@3", True),
+    ("H@10", True)
+]:
+    counts = compute_wins(df, metric, higher)
+    agg_results[metric] = counts.to_dict()
+
+agg_df = pd.DataFrame(agg_results).fillna(0).astype(int)
+agg_df.to_csv(f"{AGG_PATH}/aggregate_results.csv")
+
+print("\nSaved aggregate results.")
+
+# ================================
+# EXPORT TABLES
+# ================================
+
+def export_table(df, metric, filename):
+    pivot = df.pivot_table(
+        index="model",
+        columns=["dataset", "representation"],
+        values=metric
+    )
+    pivot.to_csv(f"tables/{filename}")
+
+os.makedirs("tables", exist_ok=True)
+
+export_table(df, "MRR", "table_mrr.csv")
+export_table(df, "MR", "table_mr.csv")
+export_table(df, "H@1", "table_hits_h1.csv")
+export_table(df, "H@3", "table_hits_h3.csv")
+export_table(df, "H@10", "table_hits_h10.csv")
+
+print("\nExported table CSVs.")
+
+print("\n✅ Experiment complete.")
