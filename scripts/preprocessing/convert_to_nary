@@ -1,0 +1,19 @@
+import pandas as pd
+
+def convert_nary(input_file, output_file):
+    df = pd.read_csv(input_file)
+
+    triples = []
+
+    for _, row in df.iterrows():
+        e = row["event_id"]
+
+        triples.extend([
+            [e, "ex:hasSubject", row["subject"]],
+            [e, "ex:hasAction", row["predicate"]],
+            [e, "ex:hasEntity", row["entity"]],
+            [e, "ex:hasPriorState", row["prior_state"]],
+            [e, "ex:hasResultingState", row["state"]],
+        ])
+
+    pd.DataFrame(triples).to_csv(output_file, sep=" ", index=False, header=False)
