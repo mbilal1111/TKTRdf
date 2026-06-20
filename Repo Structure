@@ -1,0 +1,50 @@
+tktrdf-benchmark/
+│
+├── README.md
+├── LICENSE
+├── requirements.txt
+│
+├── data/
+│   ├── smart_building/
+│   │   ├── raw/
+│   │   ├── tktrdf/
+│   │   ├── reification/
+│   │   └── nary/
+│   │
+│   └── smart_grid/
+│       ├── raw/
+│       ├── tktrdf/
+│       ├── reification/
+│       └── nary/
+│
+├── scripts/
+│   ├── preprocessing/
+│   │   ├── convert_to_tktrdf.py
+│   │   ├── convert_to_reification.py
+│   │   └── convert_to_nary.py
+│   │
+│   ├── splits/
+│   │   ├── create_triple_split.py
+│   │   └── create_event_split.py
+│   │
+│   └── evaluation/
+│       ├── run_kge_models.py
+│       └── evaluate_chain_prediction.py
+│
+├── results/
+│   ├── mrr/
+│   ├── mr/
+│   ├── hits/
+│   ├── aggregate/
+│   └── figures/
+│       └── aggregate_hits.png
+│
+├── tables/
+│   ├── table_mrr.csv
+│   ├── table_mr.csv
+│   ├── table_hits_sb.csv
+│   ├── table_hits_sg.csv
+│   └── table_aggregate.csv
+│
+└── notebooks/
+    └── analysis.ipynb
