@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e  # Stop on first error
+
+echo "===================================="
+echo "  TKTRdf FULL REPRODUCTION PIPELINE"
+echo "===================================="
+
+# -------------------------------
+# STEP 0: Environment check
+# -------------------------------
+echo "[0/5] Checking Python..."
+
+python --version || { echo "❌ Python not found"; exit 1; }
+
+# -------------------------------
+# STEP 1: Install dependencies
+# -------------------------------
+echo "[1/5] Installing dependencies..."
+
+pip install -r requirements.txt
+
+# -------------------------------
+# STEP 2: Generate splits
+# -------------------------------
+echo "[2/5] Creating dataset splits..."
+
+python scripts/splits/create_triple_split.py
+python scripts/splits/create_event_split.py
+
+# -------------------------------
+# STEP 3: Run experiments
+# -------------------------------
+echo "[3/5] Running KGE experiments..."
+
+python run_experiment.py
+
+# -------------------------------
+# STEP 4: Evaluate chain prediction
+# -------------------------------
+echo "[4/5] Evaluating chain prediction..."
+
+python scripts/evaluation/evaluate_chain_prediction.py
+
+# -------------------------------
+# STEP 5: Completion
+# -------------------------------
+echo "[5/5] Pipeline complete"
+
+echo "===================================="
+echo "✅ ALL RESULTS GENERATED"
+echo "Outputs available in:"
+echo " - results/"
+echo " - tables/"
+echo "===================================="
