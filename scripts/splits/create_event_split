@@ -1,0 +1,33 @@
+import pandas as pd
+import os
+from sklearn.model_selection import train_test_split
+
+BASE_PATH = "data"
+
+def create_event_split(file_path):
+    df = pd.read_csv(file_path, sep=" ", header=None, names=["h", "r", "t"])
+
+    # event = group by subject (event node)
+    events = df["h"].unique()
+
+    train_events, test_events = train_test_split(events, test_size=0.2, random_state=42)
+
+    train_df = df[df["h"].isin(train_events)]
+    test_df = df[df["h"].isin(test_events)]
+
+    return train_df, test_df
+
+def process(dataset, rep):
+    base = f"{BASE_PATH}/{dataset}/{rep}"
+
+    train, test = create_event_split(f"{base}/all.txt")
+
+    train.to_csv(f"{base}/train_event.txt", sep=" ", index=False, header=False)
+    test.to_csv(f"{base}/test_event.txt", sep=" ", index=False, header=False)
+
+if __name__ == "__main__":
+    for dataset in ["smart_building", "smart_grid"]:
+        for rep in ["reification", "nary", "tktrdf"]:
+            process(dataset, rep)
+
+    print("✅ Event-level split complete")
