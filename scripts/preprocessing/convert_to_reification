@@ -1,0 +1,19 @@
+import pandas as pd
+
+def convert_reification(input_file, output_file):
+    df = pd.read_csv(input_file)
+
+    triples = []
+
+    for _, row in df.iterrows():
+        e = row["event_id"]
+
+        triples.extend([
+            [e, "rdf:subject", row["subject"]],
+            [e, "rdf:predicate", row["predicate"]],
+            [e, "rdf:object", row["entity"]],
+            [row["entity"], "ex:priorState", row["prior_state"]],
+            [row["entity"], "ex:resultingState", row["state"]],
+        ])
+
+    pd.DataFrame(triples).to_csv(output_file, sep=" ", index=False, header=False)
